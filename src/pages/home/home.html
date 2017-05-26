@@ -13,8 +13,10 @@
     Take a look at the <code>src/pages/</code> directory to add or change tabs, update any existing page or create new pages.
   </p>
   <ion-list>
+    <ion-item><input [(ngModel)]="delay"></ion-item>
     <ion-item> 剩余时间 : {{timeLeft}}
     </ion-item>
     <button ion-item (click)="go()">开始计时</button>
+    <button ion-item (click)="repeate()">repeate</button>
   </ion-list>
 </ion-content>
