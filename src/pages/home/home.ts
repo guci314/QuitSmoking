@@ -9,7 +9,7 @@ declare var cordova: any;
 })
 export class HomePage {
   @Input("delay")
-  public delay:number=60;
+  public delay: number = 60;
   public timeLeft: number = 18;
   timeHandler: number = -1;
 
@@ -20,14 +20,20 @@ export class HomePage {
   go() {
     alert("吸烟有害健康");
     this.scheduleDelayed();
+    var now = new Date().getTime(),
+      at = new Date(now + this.delay * 60 * 1000);
     clearInterval(this.timeHandler);
-    this.timeLeft = this.delay*60;
-    this.timeHandler = setInterval(() => { this.timeLeft = this.timeLeft - 1; }, 1000);
+    this.timeLeft = this.delay * 60;
+    this.timeHandler = setInterval(() => {
+      var now1=new Date().getTime();
+      this.timeLeft = Math.round((at.getTime()-now1)/1000);
+    }
+      , 2000);
   }
 
   scheduleDelayed() {
     var now = new Date().getTime(),
-      at = new Date(now + this.delay*60 * 1000);
+      at = new Date(now + this.delay * 60 * 1000);
     var sound = 'file://StaringAtYou.mp3';
     cordova.plugins.notification.local.schedule({
       id: 1,
@@ -45,17 +51,17 @@ export class HomePage {
     // });
   };
 
-  repeate() {
-    alert("ok");
-    var now = new Date().getTime();
-    cordova.plugins.notification.local.schedule({
-      id:1,
-      text: "Delayed Notification",
-      firstAt: new Date(now + 1 * 1000),
-      every: "minute"
-      //icon: "file://img/logo.png"
-    });
-  }
+  // repeate() {
+  //   alert("ok");
+  //   var now = new Date().getTime();
+  //   cordova.plugins.notification.local.schedule({
+  //     id: 1,
+  //     text: "Delayed Notification",
+  //     firstAt: new Date(now + 1 * 1000),
+  //     every: "minute"
+  //     //icon: "file://img/logo.png"
+  //   });
+  // }
 
 
 }
